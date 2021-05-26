@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee Atrittion Predictor</title>
+     <link rel='shortcut icon' type='image/x-icon' href='/static/fav.jpg' />
+    <script src="https://kit.fontawesome.com/5f3f547070.js" crossorigin="anonymous"></script>
+</head>
+
+<body>
+
+    <div>
+    <div class="container">
+    <h2  style="margin-top: 0px; margin-bottom: 0px;"><span class="heading_font">Employee Atrittion Predictor</span></h2>
+     <h3 class="description"><p>A Machine Learning Web App which helps to predict whether the employee will leave the company or not,<br>
+     considering various factors.</p></h3></div>
+        <form action="{{ url_for('predict')}}" method="post">
+        <br>
+            <input id="first" name="satisfaction" type="number " placeholder="Satisfaction level of employee (b/w 0 to 1)">
+          <br><br> <input id="second" name="last_evaluation" required="required" placeholder="Last performance evaluation (b/w 0 to 1)">
+           <br><br><input id="third" name="number_project" required="required" placeholder="Number of projects completed by employee">
+           <br><br><input id="fourth" name="average_montly_hours" required="required" placeholder="Average monthly hours worked">
+           <br><br> <input id="time" name="time_spend_company" required="required" placeholder="Time spent in company(in Years)"> 
+       <br><br> <select name="Work_accident" id="fifth" required="required" style="font-family: 'Pacifico', cursive;">
+                <option value="" disabled selected hidden>Work Accident(Y/N)?</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>
+                
+            </select>
+            <br><br><select name="promotion" id="sixth" required="required" style="color:#440e0e;;font-family: 'Pacifico', cursive;">
+                <option value="" disabled selected hidden>Promotion in last 5 years(Y/N)?</option>
+                <option value="1">Yes</option>
+                <option value="0">No</option>                
+            </select>
+       <br><br> <select name="Department" id="seventh" required="required" style="color:#440e0e;font-family: 'Pacifico', cursive;">
+                <option value="" disabled selected hidden>Choose a department...</option>
+                <option value="8">Sales</option>
+                <option value="3">Accounting</option>
+                <option value="4">HR</option>
+                <option value="10">Technical</option>
+                <option value="9">Support</option>
+                <option value="5">Management</option>
+                <option value="1">IT</option>
+                <option value="7">Product Manager</option>
+                <option value="6">Marketing</option>
+                <option value="2">Research and Development</option>
+            </select>
+          <br> <br><select name="salary" id="eighth" required="required" style="color:#440e0e;;font-family: 'Pacifico', cursive;">
+                <option value="" disabled selected hidden>Salary</option>
+                <option value="2">Low</option>
+                <option value="3">Medium</option>
+                <option value="1">High</option>
+            </select>
+            <br><button class="my-cta-button"id="sub" type="submit ">Predict</button>
+
+
+
+
+
+        </form>
+
+
+
+        <h6 class="prediction">{{ prediction_texts }}</h6>
+    </div>
+<div class="footer">
+        <div class="contact" style="margin-top:12px">
+               <a target="_blank" href="https://github.com/runwalakshat5" style=" color: white;"><i class="fab fa-github fa-lg contact-icon" aria-hidden="true"></i></a>
+               <a target="_blank" href="https://www.linkedin.com/in/akshat-runwal-04a827190/" style="color: white;"><i class="fab fa-linkedin fa-lg contact-icon" aria-hidden="true"></i></a>
+           </div>
+          <p style="margin-bottom:5px;margin-top:5px">Made with ❤️ by Akshat Runwal.</p>
+        </div>
+
+
+
+    <style>
+        body {
+            
+            text-align: center;
+            padding: 0px;
+            background-image:url('/static/attrition.png');
+            background-size:100%;
+            background-position: center;
+            background-size: cover;
+            background-attachment: fixed;
+            height:100%;
+            margin:0px;
+            width:100%;
+            max-width: 100%;
+            overflow-x: hidden;
+                font-family: Arial, Helvetica,sans-serif;
+    text-align: center;
+    
+        }
+        .my-cta-button {
+    background: #f9f9f9;
+    border: 2px solid #000000;
+    border-radius: 1000px;
+    box-shadow: 3px 3px #8c8c8c;
+    margin-top: 10px;
+    padding: 10px 36px;
+    color: #000000;
+    display: inline-block;
+    font: italic bold 15px/1 "Calibri", sans-serif;
+    text-align: center;
+}
+     @media only screen and (max-width: 600px) {
+          .prediction{
+color: #440e0e;
+font-family: 'Pacifico', cursive;
+    font-size: 28px;
+    background-color:white;
+    margin-top:30px;
+
+}     
+        }
+    @media only screen and (min-width: 1200px) {
+       .prediction{
+color: #440e0e;
+font-family: 'Pacifico', cursive;
+    font-size: 30px;
+    background-color:white;
+    margin-top:30px;
+
+}
+    }
+
+
+.my-cta-button:active {
+    box-shadow: 0 0;
+}
+.my-cta-button:hover {
+    color: #440e0e;
+    border: 2px solid #440e0e;
+}
+    
+        .description p {
+    color: #ffffff;
+    font-family: 'Pacifico', cursive;
+    font-size: 14px;
+    margin: -5px 0 0;
+}
+        .heading_font {
+        color: #ffffff;
+        font-family: 'Pacifico', cursive;
+        font-size: 30px;
+        font-weight: normal;
+        }
+        
+        ::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  color:#b16f6f;
+  opacity: 1; /* Firefox */
+}
+        
+        .container{ 
+        
+            padding: 5px;
+        position: relative;
+      
+         background: linear-gradient( 
+            45deg
+             , #5e1b1b,#f8879c, #7e3636);
+        background-size: 500% 500%;
+        
+        
+        }
+ input:focus::placeholder {
+  color: transparent;
+}
+        
+        
+        html {
+        height:100%;
+            max-width: 100%;
+            overflow-x: hidden;
+        }
+
+
+        #first {
+            border-radius: 14px;
+            height: 25px;
+            font-size: 13px;
+            text-align: center;
+            font-family: 'Pacifico', cursive; 
+            border-color:#5e1b1b;
+            width:300px;
+                border-width: 1px;
+
+            color:#440e0e;
+        }
+
+        #second {
+            border-radius: 24px;
+            height: 25px;
+            font-size: 13px;
+            text-align: center;
+                border-width: 1px;
+
+            font-family: 'Pacifico', cursive; 
+            border-color:#5e1b1b;
+            width:300px;
+            color:#440e0e;
+           
+            
+        }
+
+        #third {
+            border-radius: 24px;
+            height: 25px;
+           border-width: 1px;
+
+            font-size: 13px;
+            text-align: center;
+       color: #4d089a;font-family: 'Pacifico', cursive; 
+       border-color:#5e1b1b;
+       width:300px;
+       color:#440e0e;
+
+       
+       
+        }
+        #fourth {
+            border-radius: 24px;
+            height: 25px;
+           border-width: 1px;
+
+            font-size: 13px;
+            text-align: center;
+       color: #4d089a;font-family: 'Pacifico', cursive; 
+       border-color:#5e1b1b;
+       width:300px;
+       color:#440e0e;
+  
+       
+       
+        }
+        #fifth, #sixth, #seventh, #eighth {
+            border-radius: 24px;
+            height: 25px;
+           text-align-last:center; 
+            font-size: 13px;
+            text-align: center;
+       color: #4d089a;font-family: 'Pacifico', cursive; 
+       border-color:#5e1b1b;
+       width:300px;
+       color:#440e0e;
+ 
+       
+       
+        }
+        
+        #time {
+            border-radius: 24px;
+            height: 25px;
+            color:#440e0e;
+            font-size: 13px;
+            text-align: center;
+       font-family: 'Pacifico', cursive; 
+       border-color:#5e1b1b;
+      width:300px;
+          border-width: 1px;
+
+       
+       
+        }
+        input:focus{
+    outline: none;
+}
+ select:focus{
+    outline: none;
+}
+  .footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+   background: linear-gradient( 
+            45deg
+             , #5e1b1b,#f8879c, #7e3636);
+        background-size: 500% 500%;
+   color: #ffffff;
+        font-family: 'Pacifico', cursive;
+        font-size: 15px;
+        font-weight: normal;
+  text-align: center;
+}
+        
+
+    </style>
+</body>
+
+</html>
