@@ -3,4 +3,3 @@ A Machine Learning Web App which helps to predict whether the employee will leav
 
 The dataset can be found on - https://www.kaggle.com/giripujar/hr-analytics
 
-The project is live on - https://employeeattritionpredictor.herokuapp.com/
